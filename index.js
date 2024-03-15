@@ -141,16 +141,17 @@ app.get('/user', jwtValidation, async (req, res) => {
     }
 });
 
+// Deletar usuário
+app.delete('/user', jwtValidation, (req, res) => {
 
-// Buscar usuário
-app.get('/contact', jwtValidation, (req, res) => {
     const { idUsuario } = req.body;
     const { idUsuario: idUsuarioToken } = res.locals;
 
     try {
         if (idUsuario !== idUsuarioToken) {
-            return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Autenticação inválida" });
+            return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Autenticação inválida"});
         }
+
         const dados = { id: idUsuario };
         const validacao = validarParams(dados).idObrigatorio("usuário");
 
